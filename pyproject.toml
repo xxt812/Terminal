@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "terminal-coding-agent"
+version = "0.1.0"
+description = "Python-native coding agent harness"
+requires-python = ">=3.11"
+dependencies = [
+    "httpx>=0.27,<1.0",
+    "langchain-core>=0.3,<1.0",
+    "langgraph>=0.2,<1.0",
+    "pydantic>=2.7,<3.0",
+    "pydantic-settings>=2.2,<3.0",
+    "pyyaml>=6.0,<7.0",
+]
+
+[project.optional-dependencies]
+anthropic = ["langchain-anthropic>=0.2,<1.0"]
+openai = ["langchain-openai>=0.2,<1.0"]
+mcp = ["mcp>=1.0,<2.0", "langchain-mcp-adapters>=0.1,<1.0"]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+    "ruff>=0.6",
+]
+
+[tool.setuptools.packages.find]
+include = ["src*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers"
+markers = [
+    "unit: isolated unit tests",
+    "integration: tests spanning module boundaries",
+]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
